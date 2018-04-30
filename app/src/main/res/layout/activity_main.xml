@@ -16,8 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        tools:text="no articles"
+        android:textSize="@dimen/text_title"
         android:gravity="center"
-        android:textSize="16sp" />
+        tools:text="@string/no_articles" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

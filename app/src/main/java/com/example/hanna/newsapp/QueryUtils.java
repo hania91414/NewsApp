@@ -147,19 +147,22 @@ public final class QueryUtils {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
-            JSONArray articleArray = baseJsonResponse.getJSONArray("features");
+            JSONObject response = baseJsonResponse.getJSONObject("response");
+            JSONArray resultsArray = response.getJSONArray("results");
 
 
             // If there are results in the features array
-            for (int i = 0; i < articleArray.length(); i++) {
-                JSONObject currentArticle = articleArray.getJSONObject(i);
-                JSONObject properties = currentArticle.getJSONObject("properties");
-                // Extract the values
-                String title=  properties.getString("place");
+            for (int i = 0; i < resultsArray.length(); i++) {
+                JSONObject currentArticle = resultsArray.getJSONObject(i);
 
+                // Extract the values
+                String title = currentArticle.getString("webTitle");
+                String section = currentArticle.getString("sectionName");
+                String urlAdress = currentArticle.getString("webUrl");
+                String date = currentArticle.getString("webPublicationDate");
 
         // return new ArrayList<Article>
-                Article article = new Article (title);
+                Article article = new Article(title, section, urlAdress, date);
 
                 // Add the new {@link Earthquake} to the list of earthquakes.
                 articles.add(article);

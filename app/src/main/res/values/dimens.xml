@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="framing_horizontal_padding">6dp</dimen>
+    <dimen name="framing_vertical_padding">2dp</dimen>
+    <dimen name="text_medium">12sp</dimen>
+    <dimen name="text_title">16sp</dimen>
+    <dimen name="date_start_margin">4dp</dimen>
+    <dimen name="date_end_margin">4dp</dimen>
+    <dimen name="author_start_margin">14dp</dimen>
+    <dimen name="title_padding">2dp</dimen>
+    <dimen name="title_layout_margin">4dp</dimen>
+    <dimen name="main_layout_margin_top">8dp</dimen>
+    <dimen name="main_layout_margin_bottom">6dp</dimen>
+    <dimen name="main_layout_margin_horizontal">12dp</dimen>
+    <dimen name="main_layout_padding_horizontal">4dp</dimen>
+    <dimen name="main_layout_padding_vertical">14dp</dimen>
+
+</resources>

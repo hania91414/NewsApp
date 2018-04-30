@@ -1,13 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingEnd="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingStart="16dp">
+    android:layout_marginBottom="@dimen/main_layout_margin_bottom"
+    android:layout_marginHorizontal="@dimen/main_layout_margin_horizontal"
+    android:layout_marginTop="@dimen/main_layout_margin_top"
+    android:paddingHorizontal="@dimen/main_layout_padding_horizontal"
+    android:paddingVertical="@dimen/main_layout_padding_vertical">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/title_layout_margin"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
@@ -15,9 +23,76 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
+            android:padding="@dimen/title_padding"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
-            tools:text="Long placeholder title that should wrap to more than 2 lines of text" />
+            android:textSize="@dimen/text_title"
+            tools:text="@string/title_sample_text" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/section_style"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/framing_horizontal_padding"
+                android:paddingVertical="@dimen/framing_vertical_padding"
+                android:textAllCaps="true"
+                android:textColor="@color/section_framing"
+                android:textSize="@dimen/text_medium"
+                tools:text="@string/section_sample_text" />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/author_start_margin"
+                android:background="@drawable/author_style"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/framing_horizontal_padding"
+                android:paddingVertical="@dimen/framing_vertical_padding"
+                android:textAllCaps="true"
+                android:textColor="@color/author_framing"
+                android:textSize="@dimen/text_medium"
+                tools:text="@string/author_sample_text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginEnd="@dimen/date_end_margin"
+        android:layout_marginStart="@dimen/date_start_margin"
+        android:orientation="vertical"
+        android:padding="@dimen/title_padding">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingVertical="@dimen/framing_vertical_padding"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_medium"
+            tools:text="@string/date_sample_text" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_medium"
+            tools:text="@string/time_sample_text" />
+    </LinearLayout>
 
 </LinearLayout>

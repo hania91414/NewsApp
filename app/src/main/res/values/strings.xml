@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">NewsApp</string>
+    <string name="app_name">News From Turkey</string>
     <string name="no_articles">no articles</string>
-    <string name="no_internet_connection">no internet connection</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="date_sample_text">Mar 6, 2010</string>
+    <string name="time_sample_text">3:00 PM</string>
+    <string name="author_sample_text">Author</string>
+    <string name="section_sample_text">Section</string>
+    <string name="title_sample_text">Long placeholder title that should wrap to more than 2 lines of text</string>
+    <string name="No_articles">No atricles to show</string>
 </resources>

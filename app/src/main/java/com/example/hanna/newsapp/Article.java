@@ -7,9 +7,16 @@ package com.example.hanna.newsapp;
 public class Article {
 
         private String mTitle;
+    private String mSection;
+    private String mUrlAdress;
+    private String mDate;
 
-        public Article(String title) {
-            mTitle= title;
+    public Article(String title, String section, String urlAdress, String date) {
+
+        mTitle = title;
+        mSection = section;
+        mUrlAdress = urlAdress;
+        mDate = date;
         }
 
         /**
@@ -19,4 +26,15 @@ public class Article {
             return mTitle;
         }
 
+    public String getmSection() {
+        return mSection;
+    }
+
+    public String getmUrlAdress() {
+        return mUrlAdress;
+    }
+
+    public String getmDate() {
+        return mDate;
+    }
 }
