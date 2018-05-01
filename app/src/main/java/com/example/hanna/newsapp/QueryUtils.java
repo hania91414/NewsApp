@@ -211,11 +211,11 @@ public final class QueryUtils {
         // return new ArrayList<Article>
                 Article article = new Article(primaryTitle, section, urlAdress, primaryDate, time, author);
 
-                // Add the new {@link Earthquake} to the list of earthquakes.
+                // Add the new {@link Article} to the list of articles.
                 articles.add(article);
             }
         } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the articles JSON results", e);
         }
         return articles;
     }
