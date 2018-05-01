@@ -210,7 +210,7 @@ public final class QueryUtils {
                 }
         // return new ArrayList<Article>
                 Article article = new Article(primaryTitle, section, urlAdress, primaryDate, time, author);
-
+                
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
             }
