@@ -5,25 +5,23 @@ package com.example.hanna.newsapp;
  */
 
 public class Article {
-    private String mprimaryTitle;
+    private String mTitle;
     private String mSection;
     private String mUrlAdress;
-    private String mprimaryDate;
+    private String mDate;
     private String mAuthor;
-    private String mTime;
 
-    public Article(String primaryTitle, String section, String urlAdress, String primaryDate, String time, String author) {
+    public Article(String title, String section, String urlAdress, String date, String author) {
 
-        mprimaryTitle = primaryTitle;
+        mTitle = title;
         mSection = section;
         mUrlAdress = urlAdress;
-        mprimaryDate = primaryDate;
+        mDate = date;
         mAuthor = author;
-        mTime = time;
     }
 
-    public String getMprimaryTitle() {
-        return mprimaryTitle;
+    public String getmTitle() {
+        return mTitle;
     }
 
     public String getmSection() {
@@ -34,12 +32,8 @@ public class Article {
         return mUrlAdress;
     }
 
-    public String getMprimaryDate() {
-        return mprimaryDate;
-    }
-
-    public String getmTime() {
-        return mTime;
+    public String getmDate() {
+        return mDate;
     }
 
     public String getmAuthor() {

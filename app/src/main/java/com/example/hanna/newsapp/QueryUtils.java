@@ -3,8 +3,6 @@ package com.example.hanna.newsapp;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +18,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 /**
@@ -29,8 +26,7 @@ import java.util.regex.Pattern;
 public final class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
-    private static final String AUTHOR_SEPARATOR = " | ";
-    private static final String DATE_SEPARATOR = "T";
+
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -58,7 +54,7 @@ public final class QueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create an {@link Event} object
-       List <Article> articles = extractFeatureFromJson(jsonResponse);
+        List<Article> articles = extractFeatureFromJson(jsonResponse);
 
         // Return the {@link Event}
         return articles;
@@ -107,7 +103,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the article JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -146,7 +142,7 @@ public final class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding articles to
         List<Article> articles = new ArrayList<>();
 
         try {
@@ -158,59 +154,23 @@ public final class QueryUtils {
             // If there are results in the features array
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject currentArticle = resultsArray.getJSONObject(i);
-
                 // Extract the values
                 String title = currentArticle.optString("webTitle");
                 String section = currentArticle.optString("sectionName");
                 String urlAdress = currentArticle.optString("webUrl");
                 String date = currentArticle.optString("webPublicationDate");
 
-                // If the original title string contains an author
-                // then store the primary title separately from the author in 2 Strings,
-                // so they can be displayed in 2 TextView
-                String primaryTitle;
-                String author;
-
-                // Check whether the title string contains the " | " text
-                if (title.contains(AUTHOR_SEPARATOR)) {
-                    // Split the string into different parts (as an array of Strings)
-                    // based on the " | " text.
-                    String[] parts = title.split(Pattern.quote(AUTHOR_SEPARATOR));
-                    primaryTitle = parts[0];
-                    author = parts[1];
-                } else {
-                    // Otherwise, there is no " | " text in the title string.
-                    // Hence, set the author to say "null".
-                    author = null;
-                    // The title will be the full string.
-                    primaryTitle = title;
+                String author = null;
+                JSONArray tags = currentArticle.getJSONArray("tags");
+                for (int j = 0; j < tags.length(); j++) {
+                    JSONObject tagsObject = tags.getJSONObject(j);
+                    author = tagsObject.optString("webTitle");
                 }
 
-                // If the original title string contains time
-                // then store the primary date separately from the time in 2 Strings,
-                // so they can be displayed in 2 TextView
-                String primaryDate;
-                String time;
 
-                // Check whether the date string contains the " T " text
-                if (date.contains(DATE_SEPARATOR)) {
-                    // Split the string into different parts (as an array of Strings)
-                    // based on the " T " text.
-                    String[] dateString = date.split(Pattern.quote(DATE_SEPARATOR));
-                    primaryDate = dateString[0];
-                    time = dateString[1];
-                    //Extract the first 5 characters of the time string
-                    time = time.substring(0, Math.min(time.length(), 5));
-                } else {
-                    // Otherwise, there is no " T " text in the date string.
-                    // Hence, set the time to say "null".
-                    time = null;
-                    // The title will be the full string.
-                    primaryDate = date;
-                }
-        // return new ArrayList<Article>
-                Article article = new Article(primaryTitle, section, urlAdress, primaryDate, time, author);
-                
+                // return new ArrayList<Article>
+                Article article = new Article(title, section, urlAdress, date, author);
+
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
             }

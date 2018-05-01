@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
-    private static final String USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&page-size=15&q=Turkey&api-key=test";
+    private static final String USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&page-size=10&q=Turkey&show-tags=contributor&api-key=test";
     /**
      * Constant value for the article loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
