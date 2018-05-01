@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">News From Turkey</string>
+    <string name="app_name">News related to Turkey</string>
     <string name="no_articles">no articles</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="date_sample_text">Mar 6, 2010</string>
