@@ -7,7 +7,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +25,8 @@ import java.util.List;
 public final class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    public static final int READ_TIMEOUT_MILLISECONDS = 10000;
+    public static final int CONNECT_TIMEOUT_MILLISECONDS = 15000;
 
 
     /**
@@ -89,14 +90,14 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT_MILLISECONDS);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT_MILLISECONDS);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {

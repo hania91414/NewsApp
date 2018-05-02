@@ -2,13 +2,16 @@ package com.example.hanna.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
-    private static final String USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&page-size=10&q=Turkey&show-tags=contributor&api-key=test";
+    private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search?q=Turkey&api-key=test&show-tags=contributor";
     /**
      * Constant value for the article loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -104,16 +107,30 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        Log.i("onCreateloader","oncreateloader message H");
-        NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
-        return new ArticleLoader(this, USGS_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String numberNews = sharedPrefs.getString(
+                getString(R.string.settings_nb_news_key),
+                getString(R.string.settings_nb_news_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("page-size", numberNews);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+
+        return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
         // Clear the adapter of articles data
-        Log.i("finish","finish loader message H");
+        Log.i("finish", "finish loader message H");
 
         // Set empty state text to display "No articles"
         mEmptyStateTextView.setText(R.string.no_articles);
@@ -133,8 +150,27 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
         // Loader reset, so we can clear out our existing data.
-        Log.i("reset","resetloader message H");
+        Log.i("reset", "resetloader message H");
         mAdapter.clear();
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever an item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
